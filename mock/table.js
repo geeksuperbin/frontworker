@@ -1,13 +1,14 @@
 const Mock = require('mockjs')
 
 const data = Mock.mock({
-  'items|30': [{
+  'items|10': [{
     id: '@id',
-    title: '@sentence(10, 20)',
-    'status|1': ['published', 'draft', 'deleted'],
-    author: 'name123', //table 表 author 字段 mock 数据更改测试
+    title: '任务xxxxx',
+    'status|1': ['进行中', 'Done', '挂起'],
+    author: '@datetime', //table 表 author 字段 mock 数据更改测试
     display_time: '@datetime',
-    pageviews: '@integer(300, 5000)'
+    pageviews: '@datetime',
+    spendmin: '@integer(1, 100)'
   }]
 })
 

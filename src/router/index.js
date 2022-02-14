@@ -83,19 +83,19 @@ export const constantRoutes = [
   {
     path: '/example',
     component: Layout,
-    redirect: '/example/table',
+    redirect: '/example/tasklist',
     // hidden: true,
     name: 'Example',
     meta: { title: 'ToDo管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
+        path: 'tasklist',
         name: 'TaskList',
         component: () => import('@/views/tasklist/index'),
         meta: { title: '任务列表', icon: 'table' }
       },
       {
-        path: 'index',
+        path: 'addtask',
         name: 'AddTask',
         component: () => import('@/views/addtask/index'),
         meta: { title: '添加任务', icon: 'form' }

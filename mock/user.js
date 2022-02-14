@@ -1,6 +1,6 @@
 
 const tokens = {
-  admin: {
+  geekbin: {
     token: 'admin-token'
   },
   editor: {
@@ -36,7 +36,7 @@ module.exports = [
       if (!token) {
         return {
           code: 60204,
-          message: 'Account and password are incorrect.'
+          message: '用户或密码不正确'
         }
       }
 
