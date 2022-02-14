@@ -45,7 +45,7 @@
           <el-button size="mini"  @click="showStop(scope.row.title)">挂起</el-button>
           <el-button size="mini"  @click="showContinue(scope.row.title)">继续</el-button>
           <el-button size="mini" @click="makeDone">Done</el-button>
-          <el-button size="mini" @click="makeStart">开始</el-button>
+          <el-button size="mini" @click="makeStart">Start</el-button>
           <el-button size="mini" @click="makeEdit(scope.row.title)">修改</el-button>
           <el-button size="mini" @click="makeDelete">删除</el-button>
 
