@@ -6,6 +6,25 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
+/*
+   路由文件
+   控制侧边栏功能模块
+
+    ---------------------------
+
+    使用vue router的第一步是需要一个路由表、以及把路由表加载到路由实例中， 
+    最后把路由实例导出。下面就是定义的路由表， 对于路由表 中包括
+
+    path : 访问的路径
+    component ： 此路由对于的组件
+    hidden ： 是否在界面显示此路由
+    meta ： 设置路由的属性， 图标之类的
+    name : 路由名字
+    children ： 该路由下的子路由， 效果就是二级菜单
+
+    原文链接：https://blog.csdn.net/qq_41291945/article/details/107748231
+*/
+
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -47,26 +66,39 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
+    // hidden: true, 
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '任务面板', icon: 'dashboard' }
     }]
   },
+  // {
+  //   path:'/user',
+  //   component: Layout,
+    
+  // },
 
   {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
+    // hidden: true,
     name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    meta: { title: 'ToDo管理', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        name: 'TaskList',
+        component: () => import('@/views/tasklist/index'),
+        meta: { title: '任务列表', icon: 'table' }
+      },
+      {
+        path: 'index',
+        name: 'AddTask',
+        component: () => import('@/views/addtask/index'),
+        meta: { title: '添加任务', icon: 'form' }
       },
       {
         path: 'tree',
@@ -80,6 +112,7 @@ export const constantRoutes = [
   {
     path: '/form',
     component: Layout,
+    // hidden: true,
     children: [
       {
         path: 'index',
@@ -93,6 +126,7 @@ export const constantRoutes = [
   {
     path: '/nested',
     component: Layout,
+    // hidden: true,
     redirect: '/nested/menu1',
     name: 'Nested',
     meta: {
@@ -151,6 +185,7 @@ export const constantRoutes = [
 
   {
     path: 'external-link',
+    // hidden: true,
     component: Layout,
     children: [
       {
