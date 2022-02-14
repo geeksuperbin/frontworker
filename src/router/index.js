@@ -103,6 +103,7 @@ export const constantRoutes = [
       {
         path: 'tree',
         name: 'Tree',
+        hidden: true,
         component: () => import('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
       }
@@ -112,7 +113,7 @@ export const constantRoutes = [
   {
     path: '/form',
     component: Layout,
-    // hidden: true,
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -126,7 +127,7 @@ export const constantRoutes = [
   {
     path: '/nested',
     component: Layout,
-    // hidden: true,
+    hidden: true,
     redirect: '/nested/menu1',
     name: 'Nested',
     meta: {
@@ -185,7 +186,7 @@ export const constantRoutes = [
 
   {
     path: 'external-link',
-    // hidden: true,
+    hidden: true,
     component: Layout,
     children: [
       {

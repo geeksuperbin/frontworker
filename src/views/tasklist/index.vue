@@ -41,10 +41,12 @@
       
       
       <el-table-column align="center" prop="created_at" label="操作" width="300">
-        <template>
-          <el-button size="mini">开始</el-button>
-          <el-button size="mini">挂起</el-button>
-          <el-button size="mini">Done</el-button>
+        <template  slot-scope="scope"> 
+          <el-button size="mini"  @click="showStop(scope.row.title)">挂起</el-button>
+          <el-button size="mini"  @click="showContinue(scope.row.title)">继续</el-button>
+          <el-button size="mini" @click="makeDone">Done</el-button>
+          <el-button size="mini" @click="makeStart">开始</el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -81,6 +83,50 @@ export default {
         this.list = response.data.items // 写入数据
         this.listLoading = false
       })
+    },
+    showStop(res){
+      // alert(res);
+      // 弹出模态框，输入任务挂起原因
+      this.$prompt('请输入【'+ res +'】任务挂起原因', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+          // inputErrorMessage: '邮箱格式不正确'
+        }).then(({ value }) => {
+          this.$message({
+            type: 'success',
+            message: '任务挂起原因: ' + value
+          });
+
+          // 服务器请求
+
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          });       
+        });
+    },
+    makeStart(){
+      // 开始任务
+      this.$message({
+            type: 'success',
+            message: '开始任务'
+      });   
+    },
+    makeDone(){
+      // 完成任务
+      this.$message({
+            type: 'success',
+            message: '完成任务'
+      }); 
+    },
+    showContinue(res){
+        // 继续任务
+        this.$message({
+            type: 'success',
+            message: res + '任务继续'
+      }); 
     }
   }
 }
