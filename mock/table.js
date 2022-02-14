@@ -5,7 +5,7 @@ const data = Mock.mock({
     id: '@id',
     title: '@sentence(10, 20)',
     'status|1': ['published', 'draft', 'deleted'],
-    author: 'name',
+    author: 'name123', //table 表 author 字段 mock 数据更改测试
     display_time: '@datetime',
     pageviews: '@integer(300, 5000)'
   }]
