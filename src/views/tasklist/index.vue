@@ -40,12 +40,14 @@
       </el-table-column> -->
       
       
-      <el-table-column align="center" prop="created_at" label="操作" width="300">
+      <el-table-column align="center" prop="created_at" label="操作" width="500">
         <template  slot-scope="scope"> 
           <el-button size="mini"  @click="showStop(scope.row.title)">挂起</el-button>
           <el-button size="mini"  @click="showContinue(scope.row.title)">继续</el-button>
           <el-button size="mini" @click="makeDone">Done</el-button>
           <el-button size="mini" @click="makeStart">开始</el-button>
+          <el-button size="mini" @click="makeEdit(scope.row.title)">修改</el-button>
+          <el-button size="mini" @click="makeDelete">删除</el-button>
 
         </template>
       </el-table-column>
@@ -127,6 +129,12 @@ export default {
             type: 'success',
             message: res + '任务继续'
       }); 
+    },
+    makeDelete(){
+      // 删除任务
+    },
+    makeEdit(){
+      // 修改任务名称
     }
   }
 }
