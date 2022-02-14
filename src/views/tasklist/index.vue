@@ -8,7 +8,7 @@
       fit
       highlight-current-row
     >
-      <el-table-column align="center" label="ID" width="95">
+      <el-table-column align="center" label="编号" width="95">
         <template slot-scope="scope">
           {{ scope.$index + 1 }}
         </template>
@@ -135,6 +135,25 @@ export default {
     },
     makeEdit(){
       // 修改任务名称
+      this.$prompt('修改任务名称', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+          // inputErrorMessage: '邮箱格式不正确'
+        }).then(({ value }) => {
+          this.$message({
+            type: 'success',
+            message: '任务挂起原因: ' + value
+          });
+
+          // 服务器请求
+
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          });       
+        });
     }
   }
 }
