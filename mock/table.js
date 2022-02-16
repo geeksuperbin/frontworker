@@ -1,7 +1,7 @@
 const Mock = require('mockjs')
 
 const data = Mock.mock({
-  'items|10': [{
+  'items|2': [{
     id: '@id',
     title: '任务xxxxx',
     'status|1': ['进行中', 'Done', '挂起'],
