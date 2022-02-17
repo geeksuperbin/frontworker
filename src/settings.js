@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: 'ToDo 清单管理',
 
   /**
    * @type {boolean} true | false

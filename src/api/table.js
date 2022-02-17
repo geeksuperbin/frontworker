@@ -7,3 +7,12 @@ export function getList(params) {
     params
   })
 }
+
+
+export function getList2(params) {
+  return request({
+    url: 'todo',
+    method: 'get',
+    params
+  })
+}
