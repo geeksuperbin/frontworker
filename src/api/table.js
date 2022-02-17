@@ -16,3 +16,15 @@ export function getList2(params) {
     params
   })
 }
+
+
+// 添加一条任务
+export function addTaskIndo(data) {
+  return request({
+    // url: '/vue-admin-template/user/login',
+    url: '/todo',
+    method: 'post',
+    data
+  })
+}
+

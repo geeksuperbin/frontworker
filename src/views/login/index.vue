@@ -40,7 +40,7 @@
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
-
+      <!-- 通过函数 handleLogin 触发登录操作-->
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登  录</el-button>
 
       <!-- <div class="tips">
@@ -111,6 +111,7 @@ export default {
           // console.log(this.loginForm.password);
           if("qwerzxcv" == this.loginForm.password){
             this.loading = true
+            // 向后端发送请求
             this.$store.dispatch('user/login', this.loginForm).then(() => {
               this.$router.push({ path: this.redirect || '/' })
               this.loading = false

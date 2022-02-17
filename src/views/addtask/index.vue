@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="Todo 任务">
-        <el-input v-model="form.name" />
+      <el-form-item label="Todo 任务" prop="list_name">
+        <el-input v-model="form.list_name" />
       </el-form-item>
       <!-- <el-form-item label="Activity zone">
         <el-select v-model="form.region" placeholder="please select your zone">
@@ -41,39 +41,43 @@
       </el-form-item> -->
       <el-form-item>
         <el-button type="primary" @click="onSubmit">提交</el-button>
-        <el-button @click="onCancel">重置</el-button>
+        <el-button @click="resetForm('form')">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+
+import { addTaskIndo } from '@/api/table'
+
+
+
 export default {
   data() {
     return {
       form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        list_name: '',
       }
     }
   },
   methods: {
     onSubmit() {
-      // 需要调用 axios ，将数据传输给服务器
-      this.$message('submit!')
-    },
-    onCancel() {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
+      // 将数据传输给服务器,这个方法找了半天才在源码中找到
+      addTaskIndo(this.form).then(response => {
+        // console.log(response.data.info)
+        this.$message({
+          message: response.data.info,
+          type: 'success'
+        })
+        this.resetForm('form')
+        // 跳到任务列表
+        this.$router.push({ path: '/example/tasklist' })
       })
-    }
+    },
+    resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
   }
 }
 </script>
