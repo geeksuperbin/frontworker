@@ -15,7 +15,7 @@
       </el-table-column>
       <el-table-column label="Todo 任务">
         <template slot-scope="scope">
-          {{ scope.row.title }}
+          {{ scope.row.list_name }}
         </template>
       </el-table-column>
       <el-table-column class-name="status-col" label="状态" width="110" align="center">
@@ -25,12 +25,12 @@
       </el-table-column>
       <el-table-column label="分钟" width="110" align="center">
         <template slot-scope="scope">
-          {{ scope.row.spendmin }}
+          {{ scope.row.spend_time }}
         </template>
       </el-table-column>
       <el-table-column label="开始" width="110" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.start_time }}</span>
         </template>
       </el-table-column>
       <!-- <el-table-column label="结束时间" width="110" align="center">
@@ -42,12 +42,12 @@
       
       <el-table-column align="center" prop="created_at" label="操作" width="500">
         <template  slot-scope="scope"> 
-          <el-button size="mini"  @click="showStop(scope.row.title)">挂起</el-button>
-          <el-button size="mini"  @click="showContinue(scope.row.title)">继续</el-button>
-          <el-button size="mini" @click="makeDone">Done</el-button>
-          <el-button size="mini" @click="makeStart">Start</el-button>
-          <el-button size="mini" @click="makeEdit(scope.row.title)">修改</el-button>
-          <el-button size="mini" @click="makeDelete">删除</el-button>
+          <el-button size="mini"  @click="showStop(scope.row.id)">挂起</el-button>
+          <el-button size="mini"  @click="showContinue(scope.row.id)">继续</el-button>
+          <el-button size="mini" @click="makeDone(scope.row.id)">Done</el-button>
+          <el-button size="mini" @click="makeStart(scope.row.id)">Start</el-button>
+          <el-button size="mini" @click="makeEdit(scope.row.id)">修改</el-button>
+          <el-button size="mini" @click="makeDelete(scope.row.id)">删除</el-button>
 
         </template>
       </el-table-column>
@@ -62,16 +62,18 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
+        // 1 是未开始、2表示进行中 3 表示暂停 4 表示结束
+        'test': '未开始',
+        2: '进行中',
+        3: '暂停',
+        4: ''
       }
       return statusMap[status]
     }
   },
   data() {
     return {
-      list: null,
+      list: null, // 表单数据对象
       listLoading: true
     }
   },
@@ -81,7 +83,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getList().then(response => {
+      getList().then(response => { // 后端请求数据
         this.list = response.data.items // 写入数据
         this.listLoading = false
       })
