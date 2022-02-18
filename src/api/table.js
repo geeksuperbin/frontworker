@@ -54,3 +54,11 @@ export function editToDoTask(data,uuid){
     data
   })
 }
+
+// 完成任务Done
+export function doneToDoTask(uuid){
+  return request({
+    url:'/todo/done/'+uuid,
+    method: 'get'
+  })
+}

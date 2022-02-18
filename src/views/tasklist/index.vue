@@ -60,6 +60,8 @@ import { getList } from '@/api/table'
 import { startToDoTask } from '@/api/table'
 import { deleteToDoTask } from '@/api/table'
 import { editToDoTask } from '@/api/table'
+// doneToDoTask
+import { doneToDoTask } from '@/api/table'
 
 
 
@@ -144,12 +146,19 @@ export default {
 
   
     },
-    makeDone(){
-      // 完成任务
-      this.$message({
-            type: 'success',
-            message: '完成任务'
-      }); 
+    makeDone(uuid){
+      // 完成任务 doneToDoTask
+      doneToDoTask(uuid).then(response=>{
+        console.log(response.data.info);
+        // 完成任务
+        this.$message({
+              type: 'success',
+              message: response.data.info
+        });
+        // 更新数据
+        this.fetchData()
+      })
+
     },
     showContinue(res){
         // 继续任务
