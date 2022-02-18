@@ -57,6 +57,10 @@
 
 <script>
 import { getList } from '@/api/table'
+import { startToDoTask } from '@/api/table'
+import { deleteToDoTask } from '@/api/table'
+
+
 
 export default {
   filters: {
@@ -122,12 +126,21 @@ export default {
           });       
         });
     },
-    makeStart(){
-      // 开始任务
-      this.$message({
-            type: 'success',
-            message: '开始任务'
-      });   
+    makeStart(uuid){
+      startToDoTask(uuid).then(response=>{
+        console.log(response.data.info);
+        // 开始任务
+        this.$message({
+              type: 'success',
+              message: response.data.info
+        });
+        // 更新数据
+        this.fetchData()
+
+      })
+
+
+  
     },
     makeDone(){
       // 完成任务
@@ -143,8 +156,19 @@ export default {
             message: res + '任务继续'
       }); 
     },
-    makeDelete(){
-      // 删除任务
+    makeDelete(uuid){
+      // 删除任务  deleteToDoTask
+      deleteToDoTask(uuid).then(response=>{
+        console.log(response.data.info);
+        // 删除任务
+        this.$message({
+              type: 'success',
+              message: response.data.info
+        });
+        // 更新数据
+        this.fetchData()
+
+      })
     },
     makeEdit(){
       // 修改任务名称

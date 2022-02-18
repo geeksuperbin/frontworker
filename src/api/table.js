@@ -28,3 +28,19 @@ export function addTaskIndo(data) {
   })
 }
 
+
+// 开始任务
+export function startToDoTask(uuid){
+  return request({
+    url:'/todo/start/'+uuid,
+    method: 'get'
+  })
+}
+
+// 删除任务
+export function deleteToDoTask(uuid){
+  return request({
+    url:'/todo/'+uuid,
+    method: 'delete'
+  })
+}
