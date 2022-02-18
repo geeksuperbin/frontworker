@@ -1,3 +1,15 @@
+# todo 清单管理项目
+
+- 添加任务
+- 任务列表
+
+# 前端用的技术
+- 魔改 vue-admin-template
+
+
+
+以下是vue-admin-template原始的信息
+
 # vue-admin-template
 
 English | [简体中文](./README-zh.md)
