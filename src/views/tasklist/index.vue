@@ -20,7 +20,7 @@
       </el-table-column>
       <el-table-column class-name="status-col" label="状态" width="110" align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
+          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status | formatStatus }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="分钟" width="110" align="center">
@@ -60,15 +60,26 @@ import { getList } from '@/api/table'
 
 export default {
   filters: {
+    // 定义 el-tag 类型转换颜色
     statusFilter(status) {
       const statusMap = {
-        // 1 是未开始、2表示进行中 3 表示暂停 4 表示结束
-        'test': '未开始',
-        2: '进行中',
-        3: '暂停',
-        4: ''
+        //  1 是未开始、2表示进行中 3 表示暂停 4 表示完成
+        4:'success',
+        3:'danger',
+        1:'info'
       }
       return statusMap[status]
+    },
+    // 后端字段状态转换
+    formatStatus(status){
+      const statusMap = {
+        1: '未开始',
+        2: '进行中',
+        3: '暂停',
+        4: '完成'
+      }
+      return statusMap[status]
+
     }
   },
   data() {
