@@ -42,7 +42,7 @@
       
       <el-table-column align="center" prop="created_at" label="操作" width="500">
         <template  slot-scope="scope"> 
-          <el-button size="mini"  @click="showStop(scope.row.id)">挂起</el-button>
+          <el-button size="mini"  @click="showStop(scope.row.id,scope.row.list_name)">挂起</el-button>
           <el-button size="mini"  @click="showContinue(scope.row.id)">继续</el-button>
           <el-button size="mini" @click="makeDone(scope.row.id)">Done</el-button>
           <el-button size="mini" @click="makeStart(scope.row.id)">Start</el-button>
@@ -60,8 +60,9 @@ import { getList } from '@/api/table'
 import { startToDoTask } from '@/api/table'
 import { deleteToDoTask } from '@/api/table'
 import { editToDoTask } from '@/api/table'
-// doneToDoTask
 import { doneToDoTask } from '@/api/table'
+import { breakToDoTask } from '@/api/table'
+import { continueToDoTask } from '@/api/table'
 
 
 
@@ -106,21 +107,24 @@ export default {
         this.listLoading = false
       })
     },
-    showStop(res){
+    showStop(uuid,list_name){
       // alert(res);
       // 弹出模态框，输入任务挂起原因
-      this.$prompt('请输入【'+ res +'】任务挂起原因', '提示', {
+      this.$prompt('请输入【'+ list_name  +'】任务挂起原因', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
           // inputErrorMessage: '邮箱格式不正确'
         }).then(({ value }) => {
-          this.$message({
-            type: 'success',
-            message: '任务挂起原因: ' + value
-          });
-
-          // 服务器请求
+          breakToDoTask({"reason": value},uuid).then(response=>{
+            // console.log(response.data.info);
+            this.$message({
+                  type: 'success',
+                  message: response.data.info
+            });
+            // 更新数据
+            this.fetchData()
+          })
 
         }).catch(() => {
           this.$message({
@@ -142,9 +146,6 @@ export default {
         this.fetchData()
 
       })
-
-
-  
     },
     makeDone(uuid){
       // 完成任务 doneToDoTask
@@ -160,12 +161,18 @@ export default {
       })
 
     },
-    showContinue(res){
+    showContinue(uuid){
+      // 继续任务
+      continueToDoTask(uuid).then(response=>{
+        // console.log(response.data.info);
         // 继续任务
         this.$message({
-            type: 'success',
-            message: res + '任务继续'
-      }); 
+              type: 'success',
+              message: response.data.info
+        });
+        // 更新数据
+        this.fetchData()
+      })
     },
     makeDelete(uuid){
       // 删除任务  deleteToDoTask

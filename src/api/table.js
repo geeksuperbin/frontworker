@@ -62,3 +62,23 @@ export function doneToDoTask(uuid){
     method: 'get'
   })
 }
+
+// 挂起任务
+export function breakToDoTask(data,uuid){
+  return request({
+    url:'/todo/break/'+uuid,
+    method: 'put',
+    data
+  })
+}
+
+// 继续任务
+export function continueToDoTask(uuid){
+  return request({
+    url:'/todo/continue/'+uuid,
+    method: 'get'
+  })
+}
+
+
+
