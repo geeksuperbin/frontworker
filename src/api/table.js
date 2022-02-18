@@ -44,3 +44,13 @@ export function deleteToDoTask(uuid){
     method: 'delete'
   })
 }
+
+
+// 修改任务名称
+export function editToDoTask(data,uuid){
+  return request({
+    url:'/todo/'+uuid,
+    method: 'put',
+    data
+  })
+}

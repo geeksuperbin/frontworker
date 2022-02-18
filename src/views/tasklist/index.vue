@@ -46,7 +46,7 @@
           <el-button size="mini"  @click="showContinue(scope.row.id)">继续</el-button>
           <el-button size="mini" @click="makeDone(scope.row.id)">Done</el-button>
           <el-button size="mini" @click="makeStart(scope.row.id)">Start</el-button>
-          <el-button size="mini" @click="makeEdit(scope.row.id)">修改</el-button>
+          <el-button size="mini" @click="makeEdit(scope.row.id,scope.row.list_name)">修改</el-button>
           <el-button size="mini" @click="makeDelete(scope.row.id)">删除</el-button>
 
         </template>
@@ -59,6 +59,7 @@
 import { getList } from '@/api/table'
 import { startToDoTask } from '@/api/table'
 import { deleteToDoTask } from '@/api/table'
+import { editToDoTask } from '@/api/table'
 
 
 
@@ -127,6 +128,7 @@ export default {
         });
     },
     makeStart(uuid){
+      // 开始任务
       startToDoTask(uuid).then(response=>{
         console.log(response.data.info);
         // 开始任务
@@ -170,20 +172,27 @@ export default {
 
       })
     },
-    makeEdit(){
+    makeEdit(uuid,list_name){
       // 修改任务名称
       this.$prompt('修改任务名称', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
+          inputValue: list_name  // 模态框默认值
           // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
           // inputErrorMessage: '邮箱格式不正确'
         }).then(({ value }) => {
-          this.$message({
-            type: 'success',
-            message: '任务挂起原因: ' + value
-          });
-
           // 服务器请求
+          // 修改任务请求
+          editToDoTask({"todo": value},uuid).then(response=>{
+            // console.log(response.data.info);
+            this.$message({
+                  type: 'success',
+                  message: response.data.info
+            });
+            // 更新数据
+            this.fetchData()
+
+          })
 
         }).catch(() => {
           this.$message({
